@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-e3z%&f3qv@=a!cj0^jc!l5%t&c^ehr12k2olof+9q0^xiz5slq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'solon-ppm-gshzgnb2dcf5fybp.centralindia-01.azurewebsites.net',
+    '127.0.0.1',
+    'localhost',
+]
 
 # Application definition
 
@@ -71,6 +74,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dewpoint_project.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://solon-ppm-gshzgnb2dcf5fybp.centralindia-01.azurewebsites.net',
+    'http://solon-ppm-gshzgnb2dcf5fybp.centralindia-01.azurewebsites.net',
+    'http://localhost',
+
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

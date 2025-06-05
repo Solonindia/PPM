@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dew Point to PPMV Converter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2d2d2d;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00796b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004d40;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #004d40;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            background: #f1f8e9;
+            margin: 10px 0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .error {
+            color: #d32f2f;
+            font-weight: bold;
+            background-color: #ffebee;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dew Point to PPMV Converter</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="dewpoints">Enter dew point temperatures (°C), comma-separated:</label>
+            <input type="text" name="dewpoints" id="dewpoints" value="{{ input_values }}">
+            <input type="submit" value="Convert">
+        </form>
+
+        {% if results %}
+            <h2>Results</h2>
+            {% if results|stringformat:"s" == "Invalid input. Please enter numbers separated by commas." %}
+                <div class="error">{{ results }}</div>
+            {% else %}
+                <ul>
+                    {% for dp, ppm in results %}
+                        <li><strong>Dew Point:</strong> {{ dp }}°C → <strong>{{ ppm }}</strong> ppmv</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
