@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import math
 
-def dew_point_to_ppm(dew_point_celsius, pressure_pa=101325):
+def dew_point_to_ppm(dew_point_celsius, pressure_pa=3039.75):
     numerator = 23.036 * dew_point_celsius - 333.7
     denominator = dew_point_celsius + 279.82
     vapor_pressure = 611.15 * math.exp(numerator / denominator)
