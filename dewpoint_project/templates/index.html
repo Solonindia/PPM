@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dew Point to PPMV Converter</title>
+</head>
+<body>
+    <h1>Dew Point to PPMV Converter</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="dewpoints">Enter dew point temperatures (°C), comma-separated:</label><br>
+        <input type="text" name="dewpoints" id="dewpoints" size="50" value="{{ input_values }}"><br><br>
+        <input type="submit" value="Convert">
+    </form>
+
+    {% if results %}
+        <h2>Results:</h2>
+        {% if results|stringformat:"s" == "Invalid input. Please enter numbers separated by commas." %}
+            <p style="color:red;">{{ results }}</p>
+        {% else %}
+            <ul>
+                {% for dp, ppm in results %}
+                    <li>Dew Point: {{ dp }}°C → {{ ppm }} ppmv</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
+
